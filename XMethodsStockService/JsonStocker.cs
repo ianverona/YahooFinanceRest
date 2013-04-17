@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -54,8 +55,11 @@ namespace YahooFinance
 
         public void FetchCopenhagenStocks()
         {
-            var result = QuerySymbols(CopenhagenStocksymbols.Symbols());
-            WriteToFiles(result.Query.Result.Quotes);
+            var result = QuerySymbols(CopenhagenStocksymbols.SymbolsFromFile());
+
+            // IVA: Some kind of logging
+            if (result.Query.Result != null)
+                WriteToFiles(result.Query.Result.Quotes);
         }
     }
 
@@ -81,7 +85,9 @@ namespace YahooFinance
     }
 
     public class Quote
-    {        
+    {
+        public readonly DateTime CreationDate = DateTime.Now;
+
         public string Symbol { get; set; }
         public string Name { get; set; }
         public decimal Ask { get; set; }
@@ -126,7 +132,8 @@ namespace YahooFinance
 
         public string ToSemicommaSeperatedValues()
         {
-            return string.Format("{0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{10};{11};{12};{13};{14};{15};{16};{17};{18};{19};{20};{21};{22};{23};{24};{25};{26};{27};{28};{29};{30};{31};{32};{33};{34};{35};{36};{37};{38};{39};{40}"
+            return string.Format("{0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{10};{11};{12};{13};{14};{15};{16};{17};{18};{19};{20};{21};{22};{23};{24};{25};{26};{27};{28};{29};{30};{31};{32};{33};{34};{35};{36};{37};{38};{39};{40};{41}"
+                                 , CreationDate.ToString(CultureInfo.InvariantCulture)
                                  , Symbol
                                  , Name
                                  , Ask
@@ -172,7 +179,7 @@ namespace YahooFinance
 
         public string ToSemicommaSeperatedHeaders()
         {
-            return  "Symbol;Name;Ask;Bid;AverageDailyVolume;BookValue;Change;" +
+            return  "CreationDate;Symbol;Name;Ask;Bid;AverageDailyVolume;BookValue;Change;" +
                     "DividendShare;LastTradeDate;EarningsShare;EPSEstimateCurrentYear;EPSEstimateNextYear;DaysLow;DaysHigh;" +
                     "YearLow;YearHigh;MarketCapitalization;EBITDA;ChangeFromYearLow;PercentChangeFromYearLow;ChangeFromYearHigh;" +
                     "LastTradePriceOnly;PercebtChangeFromYearHigh;FiftydayMovingAverage;TwoHundreddayMovingAverage;ChangeFromTwoHundreddayMovingAverage;" +

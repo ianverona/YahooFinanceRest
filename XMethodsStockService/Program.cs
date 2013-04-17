@@ -16,6 +16,7 @@ namespace YahooFinance
                     x.SetDisplayName("StockFetcherService");
                     x.SetInstanceName("StockFetcherService");
                     x.SetDescription("Stock fetching service using Yahoo REST API");
+                    x.EnableServiceRecovery(rc => rc.RestartService(5)); // Try restart after 5 mins.
                 });
 
             host.Run();

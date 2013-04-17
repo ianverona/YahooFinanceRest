@@ -11,7 +11,7 @@ namespace YahooFinance
         {
             Kernel = new StandardKernel();
 
-            Kernel.Bind<IShouldFetchConstraint, CopenhagenExchangeTradeConstraint>();
+            Kernel.Bind<IShouldFetchConstraint>().To<CopenhagenExchangeTradeConstraint>();
             Kernel.Bind<Func<JsonStocker>>().ToMethod(x => (() => x.Kernel.Get<JsonStocker>()));
         }
 

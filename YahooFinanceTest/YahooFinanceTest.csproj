@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CopenhagenExchangeTradeConstraintTest.cs" />
+    <Compile Include="CopenhagenStocksymbolsTest.cs" />
     <Compile Include="JsonStockerTest.cs" />
     <Compile Include="XmlStockerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

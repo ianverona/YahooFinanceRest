@@ -19,8 +19,7 @@ namespace YahooFinance
         }
 
         public void Run()
-        {
-            _timer = new Timer(delegate { File.AppendAllLines("test.txt", new List<string>{" " + DateTime.Now}); }, this, 0, 300000); // 5 minutes
+        {        
             _timer = new Timer(
                 delegate
                     {
@@ -29,7 +28,7 @@ namespace YahooFinance
                     }
                 , this
                 , 0                
-                , 300000); // 5 minutes
+                , 300000); // 5 minutes. // IVA: make configurable
         }
 
         private bool ShouldFetch()
