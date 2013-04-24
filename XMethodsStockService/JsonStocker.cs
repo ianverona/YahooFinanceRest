@@ -36,8 +36,19 @@ namespace YahooFinance
             {
                 var fileName = folderName + "\\" + GetSymboltextFileName(quote);
                 EnsureFile(fileName, quote);
-                File.AppendAllLines(fileName, new List<string> { quote.ToSemicommaSeperatedValues() });
+                TryAppendLine(fileName, quote);
             }
+        }
+
+        private static void TryAppendLine(string fileName, Quote quote)
+        {
+            var fileLines = File.ReadAllLines(fileName).ToList();
+
+            // Similar line already exists
+            if (fileLines.Any(x => x.Contains(quote.ToSemicommaSeperatedValuesOriginalOnly())))
+                return;
+
+            File.AppendAllLines(fileName, new List<string> {quote.ToSemicommaSeperatedValues()});
         }
 
         private void EnsureFile(string fileName, Quote quote)
@@ -130,10 +141,9 @@ namespace YahooFinance
         public decimal Volume { get; set; }
         public string StockExchange { get; set; }
 
-        public string ToSemicommaSeperatedValues()
+        public string ToSemicommaSeperatedValuesOriginalOnly()
         {
-            return string.Format("{0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{10};{11};{12};{13};{14};{15};{16};{17};{18};{19};{20};{21};{22};{23};{24};{25};{26};{27};{28};{29};{30};{31};{32};{33};{34};{35};{36};{37};{38};{39};{40};{41}"
-                                 , CreationDate.ToString(CultureInfo.InvariantCulture)
+            return string.Format("{0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{10};{11};{12};{13};{14};{15};{16};{17};{18};{19};{20};{21};{22};{23};{24};{25};{26};{27};{28};{29};{30};{31};{32};{33};{34};{35};{36};{37};{38};{39};{40}"
                                  , Symbol
                                  , Name
                                  , Ask
@@ -175,6 +185,58 @@ namespace YahooFinance
                                  , OneyrTargetPrice
                                  , Volume
                                  , StockExchange);
+        }
+
+        public string ToSemicommaSeperatedValues()
+        {
+            return string.Format("{0};{1}"
+                , CreationDate.ToString(CultureInfo.InvariantCulture)
+                , ToSemicommaSeperatedValuesOriginalOnly());
+            
+            // CLEANUP
+            //return string.Format("{0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{10};{11};{12};{13};{14};{15};{16};{17};{18};{19};{20};{21};{22};{23};{24};{25};{26};{27};{28};{29};{30};{31};{32};{33};{34};{35};{36};{37};{38};{39};{40};{41}"
+            //                     , CreationDate.ToString(CultureInfo.InvariantCulture)
+            //                     , Symbol
+            //                     , Name
+            //                     , Ask
+            //                     , Bid
+            //                     , AverageDailyVolume
+            //                     , BookValue
+            //                     , Change
+            //                     , DividendShare
+            //                     , LastTradeDate
+            //                     , EarningsShare
+            //                     , EPSEstimateCurrentYear
+            //                     , EPSEstimateNextYear
+            //                     , DaysLow
+            //                     , DaysHigh
+            //                     , YearLow
+            //                     , YearHigh
+            //                     , MarketCapitalization
+            //                     , EBITDA
+            //                     , ChangeFromYearLow
+            //                     , PercentChangeFromYearLow
+            //                     , ChangeFromYearHigh
+            //                     , LastTradePriceOnly
+            //                     , PercebtChangeFromYearHigh
+            //                     , FiftydayMovingAverage
+            //                     , TwoHundreddayMovingAverage
+            //                     , ChangeFromTwoHundreddayMovingAverage
+            //                     , Open
+            //                     , PercentChangeFromFiftydayMovingAverage
+            //                     , PreviousClose
+            //                     , ChangeinPercent
+            //                     , PriceSales
+            //                     , PriceBook
+            //                     , ExDividendDate
+            //                     , PERatio
+            //                     , DividendPayDate
+            //                     , PEGRatio
+            //                     , PriceEPSEstimateCurrentYear
+            //                     , ShortRatio
+            //                     , OneyrTargetPrice
+            //                     , Volume
+            //                     , StockExchange);
         }
 
         public string ToSemicommaSeperatedHeaders()

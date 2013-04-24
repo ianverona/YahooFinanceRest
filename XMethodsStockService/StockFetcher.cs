@@ -24,7 +24,10 @@ namespace YahooFinance
                 delegate
                     {
                         if (!_fetchedOnce || ShouldFetch())
-                            _jsonStocker().FetchCopenhagenStocks();
+                        {
+                            _fetchedOnce = true;
+                            _jsonStocker().FetchCopenhagenStocks();                            
+                        }
                     }
                 , this
                 , 0                
