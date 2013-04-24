@@ -58,12 +58,19 @@
     <Compile Include="JsonStocker.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RootQueryResult.cs" />
     <Compile Include="StockFetcher.cs" />
     <Compile Include="XmlStocker.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\YahooFinance.Shared\YahooFinance.Shared.csproj">
+      <Project>{9E98A7FA-BCFF-418F-8B52-9EE7C060615D}</Project>
+      <Name>YahooFinance.Shared</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

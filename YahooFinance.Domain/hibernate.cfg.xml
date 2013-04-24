@@ -6,7 +6,6 @@
     <property name="connection.driver_class">NHibernate.Driver.SqlClientDriver</property>
     <property name="connection.connection_string">Data Source=localhost;Initial Catalog=Stocker;Integrated Security=SSPI;</property>
     <property name="dialect">NHibernate.Dialect.MsSql2008Dialect</property>
-    <property name="proxyfactory.factory_class">NHibernate.ByteCode.LinFu.ProxyFactoryFactory, NHibernate.ByteCode.LinFu</property>
     <!--<mapping assembly="YahooFinance.Domain"/>-->
   </session-factory>
 </hibernate-configuration>
