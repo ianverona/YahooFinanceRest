@@ -8,6 +8,9 @@ namespace YahooFinanceTest.Shared
     [TestFixture]
     public class RequestRelayTest
     {
+        public class TestRequestTest : RequestBase<TestResponseTest> { }
+        public class TestResponseTest : ResponseBase { }
+
         [Test]
         public void Execute_NoRequestHandlerExistsForRequest_ThrowsException()
         {
@@ -27,16 +30,10 @@ namespace YahooFinanceTest.Shared
             var relay = new RequestRelay();
 
             // Act
-            relay.Execute(new AddQuoteRequest());
+            var response = relay.Execute(new AddQuoteRequest());
 
             // Assert
+            Assert.That(response, Is.Not.Null);
         }
-
-        public class TestRequestTest : RequestBase<TestResponseTest>
-        {
-            
-        }
-
-        public class TestResponseTest : ResponseBase{}
     }
 }

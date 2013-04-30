@@ -15,7 +15,7 @@ namespace YahooFinance.Shared
         /// <typeparam name="TResponseBase"></typeparam>
         /// <param name="request"></param>
         /// <returns></returns>
-        public ResponseBase Execute<TResponseBase>(RequestBase<TResponseBase> request) where TResponseBase : ResponseBase
+        public TResponseBase Execute<TResponseBase>(RequestBase<TResponseBase> request) where TResponseBase : ResponseBase
         {
             if (request == null)
                 throw new Exception("Cannot work with null requests!");
@@ -34,7 +34,7 @@ namespace YahooFinance.Shared
                     {
                         var requestHandler = Activator.CreateInstance(type);
                         var executeMethod = type.GetMethod("Execute");
-                        return (ResponseBase)executeMethod.Invoke(requestHandler, new object[] {request});
+                        return (TResponseBase)executeMethod.Invoke(requestHandler, new object[] { request });
                     }
                 }
             }

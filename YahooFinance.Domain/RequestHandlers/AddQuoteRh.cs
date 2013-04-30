@@ -6,7 +6,6 @@ namespace YahooFinance.Domain.RequestHandlers
     {
         protected override ResponseBase DoExecute(AddQuoteRequest request)
         {
-
             // IVA: Du er kommet hertil, hvor du skal til at gemme i DB'en!!
             if (request.Quote == null)
                 return request.CreateLinkedResponse();

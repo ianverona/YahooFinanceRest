@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace YahooFinance.Shared.Dtos.Requests
+﻿namespace YahooFinance.Shared.Dtos.Requests
 {
     public class AddQuoteRequest : RequestBase<AddQuoteResponse>
     {
@@ -12,14 +10,4 @@ namespace YahooFinance.Shared.Dtos.Requests
         
     }
 
-    public abstract class RequestBase<TResponseBase> where TResponseBase : ResponseBase
-    {
-
-        public TResponseBase CreateLinkedResponse()
-        {
-            return Activator.CreateInstance<TResponseBase>();
-        }
-    }
-
-    public abstract class ResponseBase { }
 }
