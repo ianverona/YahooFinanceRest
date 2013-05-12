@@ -30,7 +30,7 @@ namespace YahooFinanceTest.Shared
             var relay = new RequestRelay();
 
             // Act
-            var response = relay.Execute(new AddQuoteRequest());
+            var response = relay.Execute(new AddQuotesRequest());
 
             // Assert
             Assert.That(response, Is.Not.Null);

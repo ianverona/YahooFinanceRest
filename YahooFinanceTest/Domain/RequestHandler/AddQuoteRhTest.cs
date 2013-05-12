@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Collections.Generic;
+using NUnit.Framework;
 using YahooFinance.Shared;
 using YahooFinance.Shared.Dtos;
 using YahooFinance.Shared.Dtos.Requests;
@@ -12,11 +13,14 @@ namespace YahooFinanceTest.Domain.RequestHandler
         public void Execute_OneQuoteToSave_SavesWithNoException()
         {
             // Arrange
-            var request = new AddQuoteRequest
+            var request = new AddQuotesRequest
                 {
-                    Quote = new Quote
+                    Quotes = new List<Quote>
                         {
-                            LastTradePriceOnly = 33
+                            new Quote
+                                {
+                                    LastTradePriceOnly = 33
+                                }
                         }
                 };
             

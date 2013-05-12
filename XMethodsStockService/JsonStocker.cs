@@ -5,7 +5,10 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using Newtonsoft.Json;
+using YahooFinance.Shared;
 using YahooFinance.Shared.Dtos;
+using YahooFinance.Shared.Dtos.Requests;
+using ErrorEventArgs = Newtonsoft.Json.Serialization.ErrorEventArgs;
 
 namespace YahooFinance
 {
@@ -20,12 +23,55 @@ namespace YahooFinance
             var url = string.Format(BaseUrl, symbolList);
 
             var json = new WebClient().DownloadString(url);
-            var queryResult = JsonConvert.DeserializeObject<RootQueryResult>(json);
+            var queryResult = JsonConvert.DeserializeObject<RootQueryResult>(json, new JsonSerializerSettings {  Error = OnJsonError });
 
             return queryResult;
         }
 
-        private void WriteToFiles(IEnumerable<Quote> quotes)
+        private void OnJsonError(object sender, ErrorEventArgs e)
+        {
+            throw e.ErrorContext.Error;
+        }       
+
+        private void SendToServer(List<Quote> quotes)
+        {
+            var request = new AddQuotesRequest
+                {
+                    Quotes = quotes
+                };
+
+            var result = new RequestRelay().Execute(request); // IVA: Error handling for returned request
+        }
+
+        public void FetchCopenhagenStocks()
+        {
+            var result = QuerySymbols(CopenhagenStocksymbols.SymbolsFromFile());
+
+            // IVA: Some kind of logging
+            if (result.Query.Result != null)
+            {
+                StockFileWriter.WriteToFiles(result.Query.Result.Quotes);
+                SendToServer(result.Query.Result.Quotes);                
+            }
+        }
+
+        private void EnsureFile(string fileName, Quote quote)
+        {
+            if (File.Exists(fileName))
+                return;
+
+            File.AppendAllLines(fileName, new List<string> { quote.ToSemicommaSeperatedHeaders() });
+        }
+
+        private string GetSymboltextFileName(Quote quote)
+        {
+            return string.Format("{0}.csv", quote.Symbol);
+        }
+    }    
+
+    public static class StockFileWriter
+    {
+        public static void WriteToFiles(IEnumerable<Quote> quotes)
         {
             const string folderName = "csv";
             if (!Directory.Exists(folderName))
@@ -49,10 +95,10 @@ namespace YahooFinance
             if (fileLines.Any(x => x.Contains(quote.ToSemicommaSeperatedValuesOriginalOnly())))
                 return;
 
-            File.AppendAllLines(fileName, new List<string> {quote.ToSemicommaSeperatedValues()});
+            File.AppendAllLines(fileName, new List<string> { quote.ToSemicommaSeperatedValues() });
         }
 
-        private void EnsureFile(string fileName, Quote quote)
+        private static void EnsureFile(string fileName, Quote quote)
         {
             if (File.Exists(fileName))
                 return;
@@ -60,18 +106,9 @@ namespace YahooFinance
             File.AppendAllLines(fileName, new List<string> { quote.ToSemicommaSeperatedHeaders() });
         }
 
-        private string GetSymboltextFileName(Quote quote)
+        private static string GetSymboltextFileName(Quote quote)
         {
-            return string.Format("{0}.csv", quote.Symbol);
+            return String.Format("{0}.csv", quote.Symbol);
         }
-
-        public void FetchCopenhagenStocks()
-        {
-            var result = QuerySymbols(CopenhagenStocksymbols.SymbolsFromFile());
-
-            // IVA: Some kind of logging
-            if (result.Query.Result != null)
-                WriteToFiles(result.Query.Result.Quotes);
-        }
-    }    
+    }
 }

@@ -9,33 +9,33 @@ namespace YahooFinance.Shared.Dtos
 
         public string Symbol { get; set; }
         public string Name { get; set; }
-        public decimal Ask { get; set; }
-        public decimal Bid { get; set; }
+        public decimal? Ask { get; set; }
+        public decimal? Bid { get; set; }
         public decimal AverageDailyVolume { get; set; }
         public decimal BookValue { get; set; }
         public decimal Change { get; set; }
         public decimal DividendShare { get; set; }
-        public DateTime LastTradeDate { get; set; }
+        public DateTime? LastTradeDate { get; set; }
         public decimal EarningsShare { get; set; }
         public decimal EPSEstimateCurrentYear { get; set; }
         public decimal EPSEstimateNextYear { get; set; }
-        public decimal DaysLow { get; set; }
-        public decimal DaysHigh { get; set; }
+        public decimal? DaysLow { get; set; }
+        public decimal? DaysHigh { get; set; }
         public decimal YearLow { get; set; }
         public decimal YearHigh { get; set; }
         public decimal? MarketCapitalization { get; set; }
         public decimal EBITDA { get; set; }
-        public decimal ChangeFromYearLow { get; set; }
+        public decimal? ChangeFromYearLow { get; set; }
         public string PercentChangeFromYearLow { get; set; }
-        public decimal ChangeFromYearHigh { get; set; }
+        public decimal? ChangeFromYearHigh { get; set; }
         public decimal LastTradePriceOnly { get; set; }
         public string PercebtChangeFromYearHigh { get; set; }
         public decimal FiftydayMovingAverage { get; set; }
         public decimal TwoHundreddayMovingAverage { get; set; }
         public decimal? ChangeFromTwoHundreddayMovingAverage { get; set; }
         public string PercentChangeFromFiftydayMovingAverage { get; set; }
-        public decimal Open { get; set; }
-        public decimal PreviousClose { get; set; }
+        public decimal? Open { get; set; }
+        public decimal? PreviousClose { get; set; }
         public string ChangeinPercent { get; set; }
         public decimal? PriceSales { get; set; }
         public decimal? PriceBook { get; set; }
@@ -48,6 +48,7 @@ namespace YahooFinance.Shared.Dtos
         public decimal? OneyrTargetPrice { get; set; }
         public decimal Volume { get; set; }
         public string StockExchange { get; set; }
+        public string LastTradeTime { get; set; }
 
         public string ToSemicommaSeperatedValuesOriginalOnly()
         {

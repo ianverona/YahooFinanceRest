@@ -67,6 +67,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\YahooFinance.Domain\YahooFinance.Domain.csproj">
+      <Project>{485a699d-ce67-4e10-bb4c-354f4035e9da}</Project>
+      <Name>YahooFinance.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\YahooFinance.Shared\YahooFinance.Shared.csproj">
       <Project>{9E98A7FA-BCFF-418F-8B52-9EE7C060615D}</Project>
       <Name>YahooFinance.Shared</Name>

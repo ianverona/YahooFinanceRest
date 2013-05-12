@@ -63,7 +63,7 @@
     <Compile Include="CopenhagenStocksymbolsTest.cs" />
     <Compile Include="Domain\Mapping\MappingTests.cs" />
     <Compile Include="Domain\Mapping\SchemaTest.cs" />
-    <Compile Include="Domain\RavenDb\RavenDbTest.cs" />
+    <Compile Include="Domain\RavenDb\RavenDbPocTest.cs" />
     <Compile Include="Domain\RequestHandler\AddQuoteRhTest.cs" />
     <Compile Include="Domain\RequestHandler\RequestHandlerBaseTest.cs" />
     <Compile Include="JsonStockerTest.cs" />
