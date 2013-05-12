@@ -42,7 +42,14 @@
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Raven.Abstractions">
+      <HintPath>..\packages\RavenDB.Client.2.0.2360\lib\net40\Raven.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Client.Lightweight">
+      <HintPath>..\packages\RavenDB.Client.2.0.2360\lib\net40\Raven.Client.Lightweight.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -56,6 +63,8 @@
     <Compile Include="CopenhagenStocksymbolsTest.cs" />
     <Compile Include="Domain\Mapping\MappingTests.cs" />
     <Compile Include="Domain\Mapping\SchemaTest.cs" />
+    <Compile Include="Domain\RavenDb\RavenDbTest.cs" />
+    <Compile Include="Domain\RequestHandler\AddQuoteRhTest.cs" />
     <Compile Include="Domain\RequestHandler\RequestHandlerBaseTest.cs" />
     <Compile Include="JsonStockerTest.cs" />
     <Compile Include="Shared\RequestRelayTest.cs" />

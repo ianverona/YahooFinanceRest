@@ -1,8 +1,9 @@
-﻿using YahooFinance.Shared.Dtos.Requests;
+﻿using YahooFinance.Domain.Model;
+using YahooFinance.Shared.Dtos.Requests;
 
 namespace YahooFinance.Domain.RequestHandlers
 {
-    public class AddQuoteRh : RequestHandlerBase<AddQuoteRequest>
+    public class AddQuoteRh : RavenRequestHandlerBase<AddQuoteRequest>
     {
         protected override ResponseBase DoExecute(AddQuoteRequest request)
         {
@@ -10,7 +11,15 @@ namespace YahooFinance.Domain.RequestHandlers
             if (request.Quote == null)
                 return request.CreateLinkedResponse();
 
-            return null;
+            var quote = new Quote
+                {
+                    LastTradePrice = request.Quote.LastTradePriceOnly,
+                    PullDate = request.Quote.CreationDate
+                };
+
+            Session.Store(quote);
+
+            return request.CreateLinkedResponse();
         }
     }    
 }
