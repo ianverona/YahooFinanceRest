@@ -6,6 +6,7 @@ using YahooFinance.Shared.Dtos.Requests;
 
 namespace YahooFinance.Shared
 {
+    // IVA: Introduce real webservice
     public class RequestRelay
     {
         /// <summary>

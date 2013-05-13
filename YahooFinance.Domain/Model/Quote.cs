@@ -48,5 +48,56 @@ namespace YahooFinance.Domain.Model
         public decimal Volume { get; set; }
         public string StockExchange { get; set; }
         public string LastTradeTime { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("{0}; {1}; {2}; {3}", Symbol, LastTradePrice, PullDate, LastTradePrice);
+        }
+
+        public string ToStringValue()
+        {
+            return string.Format("{0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{10};{11};{12};{13};{14};{15};{16};{17};{18};{19};{20};{21};{22};{23};{24};{25};{26};{27};{28};{29};{30};{31};{32};{33};{34};{35};{36};{37};{38};{39};{40}"
+                                 , Symbol
+                                 , Name
+                                 , Ask
+                                 , Bid
+                                 , AverageDailyVolume
+                                 , BookValue
+                                 , Change
+                                 , DividendShare
+                                 , LastTradeDate
+                                 , EarningsShare
+                                 , EpsEstimateCurrentYear
+                                 , EpsEstimateNextYear
+                                 , DaysLow
+                                 , DaysHigh
+                                 , YearLow
+                                 , YearHigh
+                                 , MarketCapitalization
+                                 , Ebitda
+                                 , ChangeFromYearLow
+                                 , PercentChangeFromYearLow
+                                 , ChangeFromYearHigh
+                                 , LastTradePrice
+                                 , PercebtChangeFromYearHigh
+                                 , FiftydayMovingAverage
+                                 , TwoHundreddayMovingAverage
+                                 , ChangeFromTwoHundreddayMovingAverage
+                                 , Open
+                                 , PercentChangeFromFiftydayMovingAverage
+                                 , PreviousClose
+                                 , ChangeinPercent
+                                 , PriceSales
+                                 , PriceBook
+                                 , ExDividendDate
+                                 , PeRatio
+                                 , DividendPayDate
+                                 , PegRatio
+                                 , PriceEpsEstimateCurrentYear
+                                 , ShortRatio
+                                 , OneyrTargetPrice
+                                 , Volume
+                                 , StockExchange);
+        }
     }
 }

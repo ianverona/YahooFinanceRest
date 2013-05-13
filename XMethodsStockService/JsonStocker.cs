@@ -31,16 +31,6 @@ namespace YahooFinance
         private void OnJsonError(object sender, ErrorEventArgs e)
         {
             throw e.ErrorContext.Error;
-        }       
-
-        private void SendToServer(List<Quote> quotes)
-        {
-            var request = new AddQuotesRequest
-                {
-                    Quotes = quotes
-                };
-
-            var result = new RequestRelay().Execute(request); // IVA: Error handling for returned request
         }
 
         public void FetchCopenhagenStocks()
@@ -52,6 +42,16 @@ namespace YahooFinance
             {
                 SendToServer(result.Query.Result.Quotes);                
             }
+        }
+
+        private void SendToServer(List<Quote> quotes)
+        {
+            var request = new AddQuotesRequest
+                {
+                    Quotes = quotes
+                };
+
+            var result = new RequestRelay().Execute(request); // IVA: Error handling for returned request
         }
     }    
 

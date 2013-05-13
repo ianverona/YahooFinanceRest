@@ -1,4 +1,5 @@
-﻿using YahooFinance.Domain.Model;
+﻿using Raven.Client;
+using YahooFinance.Domain.Model;
 using YahooFinance.Shared.Dtos.Requests;
 using System.Linq;
 
@@ -60,10 +61,33 @@ namespace YahooFinance.Domain.RequestHandlers
                     LastTradeTime = clQuote.LastTradeTime
                 };
 
+                // IVA: Få ShouldStore til at virke
                 Session.Store(quote);                
             }
            
             return request.CreateLinkedResponse();
+        }
+
+        /// <summary>
+        /// Returns true if there is a difference
+        /// </summary>
+        /// <param name="newQuote"></param>
+        /// <param name="session"></param>
+        /// <returns></returns>
+        public static bool ShouldStore(Quote newQuote, IDocumentSession session)
+        {
+            var lastQuote = GetLastQuote(newQuote.Symbol, session);
+            return lastQuote.ToStringValue() != newQuote.ToStringValue();
+        }
+
+        private static Quote GetLastQuote(string symbol, IDocumentSession session)
+        {
+            return session
+                    .Query<Quote>()
+                    .Where(x => x.Symbol == symbol)
+                    .OrderByDescending(x => x.PullDate)
+                    .Take(1)
+                    .FirstOrDefault();
         }
     }    
 }
