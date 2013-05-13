@@ -40,6 +40,7 @@ namespace YahooFinance.Domain.RequestHandlers
 
     public abstract class RavenRequestHandlerBase<TRequestBase>
     {
+        // IVA: Introduce configuration files
         private const string Url = "http://localhost:8080";
         private const string Db = "YahooFinance";
 

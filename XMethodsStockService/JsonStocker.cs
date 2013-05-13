@@ -50,22 +50,8 @@ namespace YahooFinance
             // IVA: Some kind of logging
             if (result.Query.Result != null)
             {
-                StockFileWriter.WriteToFiles(result.Query.Result.Quotes);
                 SendToServer(result.Query.Result.Quotes);                
             }
-        }
-
-        private void EnsureFile(string fileName, Quote quote)
-        {
-            if (File.Exists(fileName))
-                return;
-
-            File.AppendAllLines(fileName, new List<string> { quote.ToSemicommaSeperatedHeaders() });
-        }
-
-        private string GetSymboltextFileName(Quote quote)
-        {
-            return string.Format("{0}.csv", quote.Symbol);
         }
     }    
 
