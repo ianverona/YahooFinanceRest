@@ -17,7 +17,7 @@ namespace YahooFinance
             if (now.DayOfWeek == DayOfWeek.Saturday || now.DayOfWeek == DayOfWeek.Sunday)
                 return false;
 
-            return now.Hour >= 9 && now.TimeOfDay < new TimeSpan(17, 16, 0);
+            return now.Hour >= 9 && now.TimeOfDay < new TimeSpan(21, 0, 0);
         }
     }
 }
