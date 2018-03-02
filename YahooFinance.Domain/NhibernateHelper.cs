@@ -8,7 +8,7 @@ using YahooFinance.Domain.Mapping;
 
 namespace YahooFinance.Domain
 {
-    public sealed class NhibernateHelper // IVA: This is a test
+    public sealed class NhibernateHelper // AFN: This is a test
     {
         private static ISessionFactory _sessionFactory;
         private static Configuration _configuration;
